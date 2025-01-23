@@ -6,13 +6,13 @@
 - Click Create **VPC Network**.
 - Provide a name for the network (e.g., **vpc-1**).
 - Under Subnet creation mode, choose **Custom**.
-- Add a subnet (e.g., **subnet-1**) with a specified IP range (e.g., **10.0.0.0/24**).
+- Add a subnet (e.g., **subnet-1**), **Region**: ```us-central1``` with a specified IP range (e.g., **10.0.0.0/24**).
 - Leave the rest of the settings as default and click Create.
 
 
 **2. Create the Second VPC Network:**
 - Repeat the same steps to create another VPC network (e.g., **vpc-2**).
-- Add a subnet (e.g., **subnet-2**) with a different IP range (e.g., **10.1.0.0/24**).
+- Add a subnet (e.g., **subnet-2**), **Region**: ```us-central1``` with a different IP range (e.g., **10.1.0.0/24**).
 
 # Step 2: Create Firewall Rules
 - Add firewall rules to allow SSH, HTTP, or other traffic you need for your blog.
