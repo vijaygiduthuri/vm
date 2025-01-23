@@ -63,5 +63,5 @@
 sudo apt update
 sudo apt install docker.io -y
 docker version
-sudo docker pull us-east1-docker.pkg.dev/sxalable-dev/frr-public/sxalable-router:1.0.537
+sudo docker pull us-east1-docker
 ```
