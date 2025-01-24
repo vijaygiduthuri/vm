@@ -1,4 +1,4 @@
-# Site to Site VPN Connection Between AWS Cloud & GCP CLoud
+# Site to Site VPN Connection Between AWS Cloud & GCP Cloud
 
 ![image](https://github.com/user-attachments/assets/2a0c5cc3-69e0-48ee-847b-8ca783e671bc)
 
