@@ -94,3 +94,146 @@ gcloud compute instances create private-euro-vm \
 
 ```
 
+
+# VPC on AWS Cloud
+
+# 1. Create a VPC
+```
+aws ec2 create-vpc --cidr-block 192.168.0.0/16 --output table
+
+```
+- **What it does:** Creates a Virtual Private Cloud (VPC) with a CIDR block of ```192.168.0.0/16```.
+
+**Options:**
+- ```--cidr-block```: Specifies the range of IP addresses for the VPC.
+- ```--output table```: Displays the output in a table format.
+
+# 2. Modify VPC Attributes
+```
+aws ec2 modify-vpc-attribute --vpc-id vpc-0adfd6b9e963d85e7 --enable-dns-support "{\"Value\":true}"
+
+```
+- **What it does**: Enables DNS resolution in the VPC.
+
+**Options:**
+- ```--enable-dns-support "{\"Value\":true}"```: Ensures instances within the VPC can resolve domain names to IP addresses.
+
+```
+aws ec2 modify-vpc-attribute --vpc-id vpc-0adfd6b9e963d85e7 --enable-dns-hostnames "{\"Value\":true}"
+
+```
+
+- **What it does**: Enables DNS hostnames for instances in the VPC.
+
+# 3. Add Tags to a VPC
+```
+aws ec2 create-tags --resources vpc-0adfd6b9e963d85e7 --tags Key=Name,Value=AWS-VPC
+
+```
+- **What it does**: Adds a tag (```Name=AWS-VPC```) to the VPC for easier identification.
+
+# 4. Create Subnets
+```
+aws ec2 create-subnet --vpc-id vpc-0adfd6b9e963d85e7 --cidr-block 192.168.1.0/24 --availability-zone us-east-1a
+
+```
+- **What it does**: Creates a subnet in the specified VPC with a CIDR block of ```192.168.1.0/24 in Availability Zone us-east-1a```.
+
+```
+aws ec2 create-subnet --vpc-id vpc-0adfd6b9e963d85e7 --cidr-block 192.168.2.0/24 --availability-zone us-east-1b
+```
+- Creates another subnet in ```us-east-1b```.
+
+# 5. Add Tags to Subnets
+```
+aws ec2 create-tags --resources subnet-07c82f715b726e54f --tags Key=Name,Value=AWS-VPC-PubSub1
+```
+
+- ***What it does**: Tags the subnet ```subnet-07c82f715b726e54f``` as ```AWS-VPC-PubSub1```.
+
+```
+aws ec2 create-tags --resources subnet-0cac30b89fc5e3ec5 --tags Key=Name,Value=AWS-VPC-PvtSub1
+```
+
+- Tags the subnet ```subnet-0cac30b89fc5e3ec5``` as ```AWS-VPC-PvtSub1```.
+
+# 6. Enable Public IP Assignment for Subnet (provide public-subnet-id)
+```
+aws ec2 modify-subnet-attribute --subnet-id subnet-07c82f715b726e54f --map-public-ip-on-launch
+```
+- **What it does**: Configures the subnet to assign a public IP address to instances at launch. This is typically done for public subnets.
+
+# 7. Create an Internet Gateway
+```
+aws ec2 create-internet-gateway --output json
+```
+
+- **What it does**: Creates an **Internet Gateway (IGW)** for the VPC to allow communication with the internet.
+
+**Options**:
+- ```--output json```: Displays the output in JSON format.
+
+# 8. Add Tags to the Internet Gateway
+```
+aws ec2 create-tags --resources igw-09a332ea3a9ec7f0f --tags Key=Name,Value=AWS-IGW
+```
+
+- **What it does**: Tags the Internet Gateway as ```AWS-IGW```.
+
+# 9. Attach the Internet Gateway to a VPC
+```
+aws ec2 attach-internet-gateway --vpc-id vpc-0adfd6b9e963d85e7 --internet-gateway-id igw-09a332ea3a9ec7f0f --region us-east-1
+```
+
+- **What it does**: Attaches the IGW to the VPC, allowing internet traffic to route through the VPC.
+
+# 10. List Internet Gateways
+```
+aws ec2 describe-internet-gateways --output table
+```
+
+- **What it does**: Displays all Internet Gateways in the account in a table format.
+
+# 11. Create Route Tables
+```
+aws ec2 create-route-table --vpc-id vpc-0adfd6b9e963d85e7
+```
+
+- **What it does**: Creates a route table associated with the VPC for managing routing rules.
+
+# 12. Add Tags to Route Tables
+```
+aws ec2 create-tags --resources rtb-06db711fbb21b8891 --tags Key=Name,Value=PublicRT
+```
+
+- What it does: Tags the route table ```rtb-06db711fbb21b8891``` as ```PublicRT``` (used for public subnet routing).
+
+```
+aws ec2 create-tags --resources rtb-041d2652c6f984e15 --tags Key=Name,Value=PrivateRT
+```
+
+- Tags another route table as ```PrivateRT```.
+
+# 13. Create Routes
+```
+aws ec2 create-route --route-table-id rtb-06db711fbb21b8891 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-09a332ea3a9ec7f0f
+
+```
+
+- **What it does**: Adds a route to the ```PublicRT``` route table to direct traffic with the destination ```0.0.0.0/0``` (all traffic) to the Internet Gateway.
+
+# 14. Describe Route Tables
+```
+aws ec2 describe-route-tables --route-table-id rtb-06db711fbb21b8891
+```
+
+- **What it does**: Displays details about the ```publicRT``` route table.
+
+# 15. Associate Route Tables with Subnets (provide public-subnet-id and public-RT-id)
+```
+aws ec2 associate-route-table --subnet-id subnet-07c82f715b726e54f --route-table-id rtb-06db711fbb21b8891
+```
+
+- **What it does**: Associates the ```PublicRT``` route table with the ```AWS-VPC-PubSub1``` (public subnet).
+
+
