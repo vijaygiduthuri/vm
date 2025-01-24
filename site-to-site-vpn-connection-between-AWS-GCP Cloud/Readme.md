@@ -236,4 +236,22 @@ aws ec2 associate-route-table --subnet-id subnet-07c82f715b726e54f --route-table
 
 - **What it does**: Associates the ```PublicRT``` route table with the ```AWS-VPC-PubSub1``` (public subnet).
 
+```
+aws ec2 associate-route-table --subnet-id subnet-0cac30b89fc5e3ec5 --route-table-id rtb-041d2652c6f984e15
+```
+
+- Associates the ```PrivateRT``` route table with the ```AWS-VPC-PvtSub1``` (private subnet).
+
+# 16. Create a VPC in GCP
+```
+gcloud compute networks create nw1-vpc --subnet-mode custom
+```
+
+- **What it does**: Creates a custom VPC in Google Cloud Platform (GCP) named ```nw1-vpc```.
+
+**Options**:
+- ```--subnet-mode custom```: Specifies that custom subnets will be created instead of automatically creating subnets in all regions.
+  
+
+
 
