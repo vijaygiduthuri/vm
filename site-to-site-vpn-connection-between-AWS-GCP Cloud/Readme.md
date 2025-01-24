@@ -253,5 +253,8 @@ gcloud compute networks create nw1-vpc --subnet-mode custom
 - ```--subnet-mode custom```: Specifies that custom subnets will be created instead of automatically creating subnets in all regions.
   
 
+```
+Create VMs on 2 subnets
+```
 
 
