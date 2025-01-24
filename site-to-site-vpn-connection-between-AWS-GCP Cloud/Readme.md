@@ -206,7 +206,7 @@ aws ec2 create-route-table --vpc-id vpc-0adfd6b9e963d85e7
 aws ec2 create-tags --resources rtb-06db711fbb21b8891 --tags Key=Name,Value=PublicRT
 ```
 
-- What it does: Tags the route table ```rtb-06db711fbb21b8891``` as ```PublicRT``` (used for public subnet routing).
+- **What it does**: Tags the route table ```rtb-06db711fbb21b8891``` as ```PublicRT``` (used for public subnet routing).
 
 ```
 aws ec2 create-tags --resources rtb-041d2652c6f984e15 --tags Key=Name,Value=PrivateRT
@@ -214,7 +214,7 @@ aws ec2 create-tags --resources rtb-041d2652c6f984e15 --tags Key=Name,Value=Priv
 
 - Tags another route table as ```PrivateRT```.
 
-# 13. Create Routes
+# 13. Create Routes (provide public-RT-id)
 ```
 aws ec2 create-route --route-table-id rtb-06db711fbb21b8891 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-09a332ea3a9ec7f0f
 
