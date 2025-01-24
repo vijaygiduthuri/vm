@@ -1,5 +1,8 @@
 # Site to Site VPN Connection Between AWS Cloud & GCP CLoud
 
+![image](https://github.com/user-attachments/assets/2a0c5cc3-69e0-48ee-847b-8ca783e671bc)
+
+
 # Objectives
 - Create a VPC network on Google & AWS Cloud.
 
@@ -256,5 +259,6 @@ gcloud compute networks create nw1-vpc --subnet-mode custom
 ```
 Create VMs on 2 subnets
 ```
+
 
 
